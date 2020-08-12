@@ -1,4 +1,4 @@
-# Class101 키트 주문 프로그램
+# Class101 클래스 및 키트 주문 프로그램
 
 ## Contents
 * [Specifications](#chapter-1)
