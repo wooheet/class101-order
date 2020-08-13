@@ -21,7 +21,6 @@
 # Using IntelliJ
 1. Sync gradle
 2. Run Application
-ㅎ
 ```
 
 ### <a name="chapter-3"></a>Requirement 
