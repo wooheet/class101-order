@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.class101.homework1.order.domain.Kit;
 import net.class101.homework1.order.domain.Klass;
-import net.class101.homework1.order.repository.KitRepo;
-import net.class101.homework1.order.repository.KlassRepo;
+import net.class101.homework1.order.domain.Product;
+import net.class101.homework1.order.repository.ProductRepo;
 import net.class101.homework1.order.type.ProductType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -14,16 +14,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private final KitRepo kitRepo;
-    private final KlassRepo klassRepo;
+    private final ProductRepo productRepo;
 
     @Override
     public void readProdInfo() {
@@ -58,28 +55,37 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void save(int prodNum, String type, String name, double price, int quantity) {
+        Kit kit = null;
+        Klass klass = null;
+
         if (type.equals(ProductType.KLASS.name())) {
-            Klass klass = Klass.builder()
+            klass = Klass.builder()
                     .name(name)
                     .price(price)
                     .quantity(quantity)
                     .build();
-            klassRepo.saveKlass(prodNum, klass);
         }
 
         if (type.equals(ProductType.KIT.name())) {
-            Kit kit = Kit.builder()
+            kit = Kit.builder()
                     .name(name)
                     .price(price)
                     .quantity(quantity)
                     .build();
-            kitRepo.saveKit(prodNum, kit);
         }
+
+        Product product = Product.builder()
+                .prodNum(prodNum)
+                .klass(klass)
+                .kit(kit)
+                .build();
+
+        productRepo.setProduct(product);
     }
 
     @Override
-    public void selectProd() {
-
+    public HashSet<Product> selectProd() {
+        return productRepo.getProductRepo();
     }
 
     static List<String> extractionName(List<String> prodInfoList) {

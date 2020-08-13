@@ -2,9 +2,6 @@ package net.class101.homework1.order.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-
-
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
