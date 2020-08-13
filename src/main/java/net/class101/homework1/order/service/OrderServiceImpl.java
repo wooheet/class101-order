@@ -84,7 +84,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public HashSet<Product> selectProd() {
+    public HashMap<Integer, Product> selectProd() {
         return productRepo.getProductRepo();
     }
 

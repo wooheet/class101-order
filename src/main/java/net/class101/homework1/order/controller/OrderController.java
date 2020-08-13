@@ -5,9 +5,9 @@ import net.class101.homework1.order.domain.Product;
 import net.class101.homework1.order.service.OrderService;
 import org.springframework.stereotype.Controller;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller
@@ -22,13 +22,16 @@ public class OrderController {
         String selectOder = scanner.nextLine();
 
         if (selectOder.equals("o")) {
-            HashSet<Product> products = orderService.selectProd();
+            HashMap<Integer, Product> products = orderService.selectProd();
             displayProduct(products);
 
             while (true) {
                 System.out.print("상품번호: ");
                 //TODO: 동일 클래스 추가 주문 시 중복 주문하는 것을 막아주어야 합니다, 클래스 수량 1개
                 // 결제가 완료되고, 다음 주문에선 이전에 결제와 무관하게 클래스 주문이 되어야 합니다
+                // kit - 97166
+                // klass - 96588
+
                 String prodNum = scanner.nextLine();
 
                 if (prodNum.compareTo(" ") == 0) {
@@ -67,8 +70,9 @@ public class OrderController {
         orderService.readProdInfo();
     }
 
-    public void displayProduct(HashSet<Product> products) {
-        Stream<Product> sorted = products.stream().sorted(
+    //TODO move response
+    public void displayProduct(HashMap<Integer, Product> products) {
+        Stream<Product> sorted = products.values().stream().sorted(
                 Comparator.comparingLong(Product::getProdNum).reversed());
 
         System.out.println("상품번호 \t\t\t\t\t 상품명 \t\t\t\t\t\t\t 판매가격 \t\t 재고수");
