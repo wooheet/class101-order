@@ -6,7 +6,6 @@
 * [Requirement](#chapter-3) 
 * [Strategy](#chapter-4)
 * [Domain](#chapter-5)
-* [Better Planning](#chapter-6)
 
 ### <a name="chapter-1"></a>Specifications 
 ````
@@ -19,18 +18,10 @@
 
 ### <a name="chapter-2"></a>How to Run
 ```
-Profile
-- none, dev
-
-1. 실행
-./gradlew bootrun
-
 # Using IntelliJ
 1. Sync gradle
 2. Run Application
-
-2. Test 
-./gradlew test
+ㅎ
 ```
 
 ### <a name="chapter-3"></a>Requirement 
@@ -64,22 +55,29 @@ Profile
 - Product - Kit, Class 도메인으로 분리 
 ````
 
+### <a name="chapter-5"></a>CheckList
+- [x] 상품 정보 로드
+- [x] 상품 정보 저장 
+- [x] 상품 선택
+- [x] 재고 부족 Exception
+- [x] 상품 선택 결과 Display 
+- [x] 배송 조건 
+- [ ] 단위 테스트
+
 ### <a name="chapter-5"></a>Domain 
 ```
 상품(Product)
    상품번호
-   상품명
+   클래스
+   키트  
 
 클래스(Klass)
+   클래스명
    판매가격
    재고수량
 
 키트(Kit)
+   키트
    판매가격
    재고수량   
-```
-
-### <a name="chapter-6"></a>Better Planning 
-```
-...
 ```

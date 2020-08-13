@@ -25,6 +25,7 @@ public class OrderServiceImpl implements OrderService {
     private final Display display;
     private final ProductRepo productRepo;
     private static final double DELIVERY_FEE = 5000;
+    private static final HashMap<Integer, Integer> basket = new HashMap<>();
 
     @Override
     public void readProdInfo() {
@@ -58,35 +59,6 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void save(int prodNum, String type, String name, double price, int quantity) {
-        Kit kit = null;
-        Klass klass = null;
-
-        if (type.equals(ProductType.KLASS.name())) {
-            klass = Klass.builder()
-                    .name(name)
-                    .price(price)
-                    .quantity(quantity)
-                    .build();
-        }
-
-        if (type.equals(ProductType.KIT.name())) {
-            kit = Kit.builder()
-                    .name(name)
-                    .price(price)
-                    .quantity(quantity)
-                    .build();
-        }
-
-        Product product = Product.builder()
-                .prodNum(prodNum)
-                .klass(klass)
-                .kit(kit)
-                .build();
-
-        productRepo.setProduct(product);
-    }
-
     @Override
     public HashMap<Integer, Product> getProd() {
         return productRepo.getProductRepo();
@@ -94,13 +66,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void selectProd() {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.print("입력(o[order]: 주문, q[quit]: 종료) : ");
+        Scanner scanner = new Scanner(System.in);
         String selectOder = scanner.nextLine();
 
         if (selectOder.equals("o")) {
-            HashMap<Integer, Integer> basket = new HashMap<>();
             HashMap<Integer, Product> products = getProd();
             display.product(products);
 
@@ -141,6 +111,7 @@ public class OrderServiceImpl implements OrderService {
 
                     display.result(payment, checkKlass, checkKit, DELIVERY_FEE);
 
+                    basket.clear();
                     selectProd();
                     break;
                 }
@@ -177,8 +148,36 @@ public class OrderServiceImpl implements OrderService {
             System.out.println("o 또는 q를 입력해주세요.");
             System.exit(0);
         }
-
         scanner.close();
+    }
+
+    private void save(int prodNum, String type, String name, double price, int quantity) {
+        Kit kit = null;
+        Klass klass = null;
+
+        if (type.equals(ProductType.KLASS.name())) {
+            klass = Klass.builder()
+                    .name(name)
+                    .price(price)
+                    .quantity(quantity)
+                    .build();
+        }
+
+        if (type.equals(ProductType.KIT.name())) {
+            kit = Kit.builder()
+                    .name(name)
+                    .price(price)
+                    .quantity(quantity)
+                    .build();
+        }
+
+        Product product = Product.builder()
+                .prodNum(prodNum)
+                .klass(klass)
+                .kit(kit)
+                .build();
+
+        productRepo.setProduct(product);
     }
 
     static List<String> extractionName(List<String> prodInfoList) {

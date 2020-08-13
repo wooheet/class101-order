@@ -1,6 +1,7 @@
 package net.class101.homework1.order.response;
 
 import net.class101.homework1.order.domain.Product;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.text.NumberFormat;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-@Service
+@Component
 public class Display {
     public void product(HashMap<Integer, Product> products) {
         Stream<Product> sorted = products.values().stream().sorted(
