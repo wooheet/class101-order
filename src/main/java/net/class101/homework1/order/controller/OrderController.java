@@ -1,10 +1,14 @@
 package net.class101.homework1.order.controller;
 
 import lombok.RequiredArgsConstructor;
+import net.class101.homework1.order.domain.Product;
 import net.class101.homework1.order.service.OrderService;
 import org.springframework.stereotype.Controller;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 @Controller
 @RequiredArgsConstructor
@@ -18,6 +22,9 @@ public class OrderController {
         String selectOder = scanner.nextLine();
 
         if (selectOder.equals("o")) {
+            HashSet<Product> products = orderService.selectProd();
+            displayProduct(products);
+
             while (true) {
                 System.out.print("상품번호: ");
                 //TODO: 동일 클래스 추가 주문 시 중복 주문하는 것을 막아주어야 합니다, 클래스 수량 1개
@@ -60,4 +67,22 @@ public class OrderController {
         orderService.readProdInfo();
     }
 
+    public void displayProduct(HashSet<Product> products) {
+        Stream<Product> sorted = products.stream().sorted(
+                Comparator.comparingLong(Product::getProdNum).reversed());
+
+        System.out.println("상품번호 \t\t\t\t\t 상품명 \t\t\t\t\t\t\t 판매가격 \t\t 재고수");
+
+        sorted.forEach(product -> {
+            if (product.getKit() != null) {
+                System.out.println(product.getProdNum() + "  " + product.getKit().getName() + "  "
+                        + product.getKit().getPrice() + "  " + product.getKit().getQuantity());
+            }
+
+            if (product.getKlass() != null) {
+                System.out.println(product.getProdNum() + "  " + product.getKlass().getName() + "  "
+                        + product.getKlass().getPrice() + "  " + product.getKlass().getQuantity());
+            }
+        });
+    }
 }
