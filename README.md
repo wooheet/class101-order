@@ -6,8 +6,7 @@
 * [Requirement](#chapter-3) 
 * [Strategy](#chapter-4)
 * [Domain](#chapter-5)
-* [Entity](#chapter-6)
-* [Better Planning](#chapter-7)
+* [Better Planning](#chapter-6)
 
 ### <a name="chapter-1"></a>Specifications 
 ````
@@ -15,14 +14,13 @@
  Spring Boot 2.3.2.RELEASE
  Gradle
  lombok
- MySql / h2Database
  Domain Driven Design
 ````
 
 ### <a name="chapter-2"></a>How to Run
 ```
 Profile
-- dev, none
+- none, dev
 
 1. 실행
 ./gradlew bootrun
@@ -63,9 +61,7 @@ Profile
 ### <a name="chapter-4"></a>Strategy 
 ```` 
 - DDD(Domain Driven Design) 적용
-- Product, Kit, Class 도메인으로 분리 
-    - JPA fetch join 적용
-...
+- Product - Kit, Class 도메인으로 분리 
 ````
 
 ### <a name="chapter-5"></a>Domain 
@@ -83,22 +79,7 @@ Profile
    재고수량   
 ```
 
-## <a name="chapter-6"></a>Entity
-```
-상품(Product)
-   상품번호
-   상품명
-
-클래스(Klass)
-   판매가격
-   재고수량
-
-키트(Kit)
-   판매가격
-   재고수량
-```
-
-### <a name="chapter-7"></a>Better Planning 
+### <a name="chapter-6"></a>Better Planning 
 ```
 ...
 ```
